@@ -42,9 +42,9 @@ def Process_Data(instr, exp_dir):
     np.save(os.path.join(test_data_dir, "test_X.npy"), X_test)
     np.save(os.path.join(test_data_dir, "test_Y.npy"), Y_test)    
     
-    train_dataset = utils.TensorDataset(torch.Tensor(X_train, device=cuda), torch.Tensor(Y_train, device=cuda))
+    train_dataset = utils.TensorDataset(torch.from_numpy(X_train), torch.from_numpy(Y_train))
     train_loader = utils.DataLoader(train_dataset, batch_size=16, shuffle=True)
-    test_dataset = utils.TensorDataset(torch.Tensor(X_test, device=cuda), torch.Tensor(Y_test,device=cuda))
+    test_dataset = utils.TensorDataset(torch.from_numpy(X_test), torch.from_numpy(Y_test))
     test_loader = utils.DataLoader(test_dataset, batch_size=16, shuffle=True) 
     
     return train_loader, test_loader
