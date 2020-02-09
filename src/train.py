@@ -54,7 +54,7 @@ def train(model, epoch, train_loader, optimizer,iter_train_loss):
     train_loss = 0
     for batch_idx, (data, target) in enumerate(train_loader):        
         optimizer.zero_grad()
-        split = torch.split(data, 128, dim=1)
+        split = torch.split(data.float(), 128, dim=1)
         y_pred = model(split[0].cuda(),split[1].cuda())
         loss_function = nn.MSELoss()
         loss = loss_function(y_pred, target.cuda())
@@ -74,7 +74,7 @@ def test(model, epoch, test_loader, scheduler, iter_test_loss):
         model.eval()
         test_loss = 0
         for idx, (data, target) in enumerate(test_loader):
-            split = torch.split(data,128,dim = 1)
+            split = torch.split(data.float(),128,dim = 1)
             y_pred = model(split[0].cuda(),split[1].cuda())
             loss_function = nn.MSELoss() 
             loss = loss_function(y_pred,target.cuda())    
